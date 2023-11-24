@@ -103,7 +103,7 @@ export default function PotluckForm() {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="px-6 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="px-6 py-2 border border-transparent text-base font-medium rounded-md text-white bg-green-600 shadow-sm transition duration-200 ease-in-out hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Submit
         </button>

@@ -1,6 +1,6 @@
 const PotluckItemList = ({ potluckItems }) => {
   return (
-    <div className="min-w-2xl max-w-4xl mx-auto">
+    <div className="w-full mx-auto bg-white p-4 rounded-md shadow-md">
       <h2 className="text-2xl font-bold text-center mb-6">Potluck Items</h2>
       <ul className="divide-y divide-gray-200">
         {potluckItems.map((item, index) => (
