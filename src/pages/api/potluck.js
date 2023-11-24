@@ -5,7 +5,11 @@ export default async function handler(req, res) {
     // Handle GET request
     if (req.method === "GET") {
       // Fetch data from your database instead of the Gist
-      const potluckItems = await prisma.potluckItem.findMany();
+      const potluckItems = await prisma.potluckItem.findMany({
+        orderBy: {
+          id: "desc",
+        },
+      });
       res.status(200).json(potluckItems);
     }
     // Handle POST request
