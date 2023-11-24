@@ -1,6 +1,8 @@
+import Christmas from "@/components/Card/Christmas";
+
 const PotluckItemList = ({ potluckItems }) => {
   return (
-    <div className="w-full mx-auto bg-white p-4 rounded-md shadow-md">
+    <Christmas>
       <h2 className="text-2xl font-bold text-center mb-6">Potluck Items</h2>
       <ul className="divide-y divide-gray-200">
         {potluckItems.map((item, index) => (
@@ -15,7 +17,7 @@ const PotluckItemList = ({ potluckItems }) => {
           </li>
         ))}
       </ul>
-    </div>
+    </Christmas>
   );
 };
 

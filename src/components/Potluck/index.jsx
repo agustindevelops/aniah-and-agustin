@@ -19,7 +19,7 @@ const Potluck = ({ potluckItems }) => {
       </div>
       <main className="flex flex-col min-h-screen p-4 sm:container mx-auto gap-4 parallax">
         <h1 className="font-cursive text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white text-center my-4">
-          Christmas Party Potluck 2023
+          Christmas Party 2023
         </h1>
         <div className="font-clean flex flex-col gap-4">
           <PotluckForm />
