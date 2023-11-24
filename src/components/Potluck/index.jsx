@@ -4,8 +4,23 @@ import Image from "next/image";
 import PotluckForm from "@/components/Potluck/PotluckForm";
 import PotluckItemList from "@/components/Potluck/PotluckItems";
 import Snowfall from "react-snowfall";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const Potluck = ({ potluckItems }) => {
+const Potluck = () => {
+  const [potluckItems, setPotluckItems] = useState(null);
+
+  const fetchPotluckItems = async () => {
+    try {
+      const { data } = await axios.get("/api/potluck");
+      setPotluckItems(data);
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    fetchPotluckItems();
+  }, []);
+
   return (
     <>
       <Snowfall />
@@ -22,7 +37,7 @@ const Potluck = ({ potluckItems }) => {
           Christmas Party 2023
         </h1>
         <div className="font-clean flex flex-col gap-4">
-          <PotluckForm />
+          <PotluckForm onSuccess={fetchPotluckItems} />
           <PotluckItemList potluckItems={potluckItems} />
         </div>
       </main>

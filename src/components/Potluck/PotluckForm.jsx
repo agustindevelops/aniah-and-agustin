@@ -3,13 +3,12 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Christmas from "@/components/Card/Christmas";
+import Spinner from "@/components/Spinner";
 
-export default function PotluckForm() {
+export default function PotluckForm({ onSuccess }) {
   const [err, setErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const {
     register,
@@ -24,9 +23,9 @@ export default function PotluckForm() {
       const { data, status } = await axios.post("/api/potluck", formData);
 
       if (status === 200) {
-        router.refresh();
         setErr("");
         reset();
+        onSuccess();
       }
     } catch (e) {
       console.log(e);
@@ -111,30 +110,7 @@ export default function PotluckForm() {
               isLoading ? "bg-green-300" : "hover:bg-green-700"
             } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
           >
-            {isLoading ? (
-              <svg
-                className="animate-spin mx-auto h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 0116 0H4z"
-                ></path>
-              </svg>
-            ) : (
-              "Submit"
-            )}
+            {isLoading ? <Spinner /> : "Submit"}
           </button>
         </div>
       </form>

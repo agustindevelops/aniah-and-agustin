@@ -1,6 +1,9 @@
 import Christmas from "@/components/Card/Christmas";
+import Spinner from "@/components/Spinner";
 
 const PotluckItemList = ({ potluckItems }) => {
+  if (!potluckItems) return <Spinner />;
+
   return (
     <Christmas>
       <h2 className="text-2xl font-bold text-center mb-6">Potluck Items</h2>
