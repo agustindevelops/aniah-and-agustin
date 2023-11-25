@@ -24,7 +24,13 @@ const Potluck = () => {
 
   return (
     <>
-      <Snowfall />
+      <Snowfall
+        style={{
+          position: "fixed",
+          width: "100vw",
+          height: "100vh",
+        }}
+      />
       <div className="-z-10 fixed h-screen w-screen">
         <Image
           src="/christmas-background.png"
