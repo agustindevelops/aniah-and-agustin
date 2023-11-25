@@ -15,7 +15,7 @@ const Counter = ({ potluckItems }) => {
 
         const numberClass = classNames(textColor);
         const cardClass = classNames(
-          "bg-white rounded-2xl p-2 flex flex-col items-center border-2 w-full text-center",
+          "bg-white rounded-2xl p-2 flex flex-col items-center justify-center border-2 w-full text-center",
           borderColor,
         );
 
