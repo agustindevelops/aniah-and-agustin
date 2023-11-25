@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Christmas from "@/components/Card/Christmas";
 import Spinner from "@/components/Spinner";
+import { CATEGORIES } from "@/components/Potluck/constants";
 
 export default function PotluckForm({ onSuccess }) {
   const [err, setErr] = useState("");
@@ -90,10 +91,11 @@ export default function PotluckForm({ onSuccess }) {
             className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Select a category...</option>
-            <option value="main-dish">Main Dish</option>
-            <option value="appetizers">Appetizers</option>
-            <option value="sides">Sides</option>
-            <option value="dessert">Dessert</option>
+            {CATEGORIES.map(({ label, value }) => (
+              <option key={`category-value-${value}`} value={value}>
+                {label}
+              </option>
+            ))}
           </select>
           {errors.category && (
             <p className="text-red-500 text-xs italic">
