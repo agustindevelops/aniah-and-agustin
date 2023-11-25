@@ -7,6 +7,9 @@ import Christmas from "@/components/Card/Christmas";
 import Spinner from "@/components/Spinner";
 import { CATEGORIES } from "@/components/Potluck/constants";
 
+const ERROR_TEXT =
+  "Oops! Something Went Wrong. Please feel free to blame Agustin for writing bad code.";
+
 export default function PotluckForm({ onSuccess }) {
   const [err, setErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,16 +24,18 @@ export default function PotluckForm({ onSuccess }) {
   const onSubmit = async (formData) => {
     try {
       setIsLoading(true);
-      const { data, status } = await axios.post("/api/potluck", formData);
+      const { status } = await axios.post("/api/potluck", formData);
 
       if (status === 200) {
         setErr("");
         reset();
         onSuccess();
+      } else {
+        setErr(ERROR_TEXT);
       }
     } catch (e) {
       console.log(e);
-      setErr("Oops Something Went Wrong! Blame Agustin for writing bad code.");
+      setErr(ERROR_TEXT);
     } finally {
       setIsLoading(false);
     }
@@ -103,7 +108,11 @@ export default function PotluckForm({ onSuccess }) {
             </p>
           )}
         </div>
-
+        {err ? (
+          <h3 className="text-red-500 text-lg font-bold">{err}</h3>
+        ) : (
+          <></>
+        )}
         <div className="flex justify-end">
           <button
             disabled={isLoading}
