@@ -7,7 +7,7 @@ const Counter = ({ potluckItems }) => {
   if (!potluckItems) return <Spinner />;
 
   return (
-    <div className="flex flex-row justify-around gap-4">
+    <div className="flex flex-row justify-around gap-1 md:gap-2 lg:gap-4">
       {CATEGORIES.map(({ label, textColor, borderColor, value }) => {
         const total = potluckItems.reduce((total, { category }) => {
           return value === category ? total + 1 : total;
@@ -16,7 +16,7 @@ const Counter = ({ potluckItems }) => {
         const numberClass = classNames(textColor);
         const cardClass = classNames(
           "bg-white rounded-2xl p-2 flex flex-col items-center justify-center border-2 w-full text-center",
-          borderColor,
+          borderColor
         );
 
         return (
