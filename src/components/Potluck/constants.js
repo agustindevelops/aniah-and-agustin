@@ -27,6 +27,13 @@ export const CATEGORIES = [
     bgColor: "bg-red-500",
     borderColor: "border-red-500",
   },
+  {
+    label: "Drink",
+    value: "drink",
+    textColor: "text-red-900",
+    bgColor: "bg-red-900",
+    borderColor: "border-red-900",
+  },
 ];
 
 export const CATEGORY_INDEX = CATEGORIES.reduce((acc, { label, value }, i) => {
