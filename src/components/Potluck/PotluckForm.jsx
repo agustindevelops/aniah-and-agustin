@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import Christmas from "@/components/Card/Christmas";
+import CardWrapper from "@/components/Card/CardWrapper";
 import Spinner from "@/components/Spinner";
 import { CATEGORIES } from "@/components/Potluck/constants";
 
@@ -42,7 +42,7 @@ export default function PotluckForm({ onSuccess }) {
   };
 
   return (
-    <Christmas>
+    <CardWrapper>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
           <label
@@ -125,6 +125,6 @@ export default function PotluckForm({ onSuccess }) {
           </button>
         </div>
       </form>
-    </Christmas>
+    </CardWrapper>
   );
 }

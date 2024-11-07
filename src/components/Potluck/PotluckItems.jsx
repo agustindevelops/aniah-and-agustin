@@ -1,4 +1,4 @@
-import Christmas from "@/components/Card/Christmas";
+import CardWrapper from "@/components/Card/CardWrapper";
 import Spinner from "@/components/Spinner";
 import { getCategoryByValue } from "@/components/Potluck/constants";
 import classNames from "classnames";
@@ -7,14 +7,14 @@ const PotluckItemList = ({ potluckItems }) => {
   if (!potluckItems) return <Spinner />;
 
   return (
-    <Christmas>
+    <CardWrapper>
       <h2 className="text-2xl font-bold text-center mb-6">Potluck Items</h2>
       <ul className="divide-y divide-gray-200">
         {potluckItems.map((item, index) => (
           <Item key={`potluck-entry-${name}-${index}`} {...item} />
         ))}
       </ul>
-    </Christmas>
+    </CardWrapper>
   );
 };
 
