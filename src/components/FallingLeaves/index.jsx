@@ -55,8 +55,15 @@ const FallingLeaves = () => {
   }, []);
 
   return (
-    <div className="w-full absolute h-screen overflow-hidden">
-      <div ref={containerRef} className={styles.container} />;
+    <div
+      className="w-full absolute h-full overflow-hidden"
+      style={{ pointerEvents: "none" }}
+    >
+      <div
+        ref={containerRef}
+        className={styles.container}
+        style={{ pointerEvents: "none" }}
+      />
     </div>
   );
 };
