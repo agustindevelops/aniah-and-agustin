@@ -2,54 +2,19 @@
 
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import CardWrapper from "@/components/Card/CardWrapper";
 import Spinner from "@/components/Spinner";
 import { CATEGORIES } from "@/components/Potluck/constants";
+import { scrollFocusedFieldIntoView } from "@/utils/scrollFocusedFieldIntoView";
 import classNames from "classnames";
 
 const ERROR_TEXT =
   "Oops! Something Went Wrong. Please feel free to blame Agustin for writing bad code.";
 
-const KEYBOARD_GAP = 16;
-
-function isTextField(field) {
-  return field instanceof HTMLInputElement && field.type !== "radio" && field.type !== "checkbox";
-}
-
-function scrollFieldAboveKeyboard(field) {
-  const viewport = window.visualViewport;
-  const rect = field.getBoundingClientRect();
-  const visibleBottom = viewport
-    ? viewport.offsetTop + viewport.height - KEYBOARD_GAP
-    : window.innerHeight - KEYBOARD_GAP;
-
-  if (rect.bottom <= visibleBottom && rect.top >= KEYBOARD_GAP) return;
-
-  const top = window.scrollY + rect.bottom - (viewport?.height ?? window.innerHeight) + KEYBOARD_GAP;
-  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
-}
-
 export default function PotluckForm({ onSuccess }) {
   const [err, setErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const formRef = useRef(null);
-
-  useEffect(() => {
-    const form = formRef.current;
-    const viewport = window.visualViewport;
-    if (!form || !viewport) return;
-
-    const liftFocusedField = () => {
-      const active = document.activeElement;
-      if (isTextField(active) && form.contains(active)) {
-        scrollFieldAboveKeyboard(active);
-      }
-    };
-
-    viewport.addEventListener("resize", liftFocusedField);
-    return () => viewport.removeEventListener("resize", liftFocusedField);
-  }, []);
 
   const {
     register,
@@ -80,19 +45,14 @@ export default function PotluckForm({ onSuccess }) {
 
   const fieldLabel = "block text-base font-medium text-stone-800";
   const fieldInput =
-    "mt-1.5 block w-full scroll-mb-[45dvh] rounded-xl border border-orange-200 bg-white px-3 py-2.5 text-base text-stone-900 shadow-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-300";
+    "mt-1.5 block w-full rounded-xl border border-orange-200 bg-white px-3 py-2.5 text-base text-stone-900 shadow-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-300";
 
   return (
     <CardWrapper>
       <form
-        ref={formRef}
         onSubmit={handleSubmit(onSubmit)}
-        onFocus={(event) => {
-          if (!isTextField(event.target)) return;
-          const field = event.target;
-          window.setTimeout(() => scrollFieldAboveKeyboard(field), 300);
-        }}
-        className="space-y-4 max-sm:focus-within:pb-[50dvh]"
+        onFocusCapture={scrollFocusedFieldIntoView}
+        className="space-y-4"
       >
         <div>
           <label htmlFor="name" className={fieldLabel}>
