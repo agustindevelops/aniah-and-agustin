@@ -28,8 +28,8 @@ const pinyonFont = Pinyon_Script({
 });
 
 export const metadata = {
-  title: "Potluck 2023",
-  description: "Potluck List for Christmas Party 2023 with Agustin & Aniah",
+  title: "Thanksgiving 2026",
+  description: "Potluck list for Thanksgiving 2026 with Agustin & Aniah",
 };
 
 export default function RootLayout({ children }) {

@@ -11,7 +11,8 @@ import FallingLeaves from "@/components/FallingLeaves";
 import { defaultTheme, ThemeProvider } from "@/components/context/Theme";
 
 const options = {
-  title: "Thanksgiving 2024",
+  title: "Thanksgiving 2026",
+  date: "Wednesday, November 25",
   backgroundImage: "/christmas-background.png",
   falling: "snow",
   theme: defaultTheme,
@@ -32,7 +33,13 @@ const Falling = {
   leaves: FallingLeaves,
 };
 
-const Potluck = ({ title, backgroundImage, falling, theme } = options) => {
+const Potluck = ({
+  title,
+  date,
+  backgroundImage,
+  falling,
+  theme,
+} = options) => {
   const [potluckItems, setPotluckItems] = useState(null);
   const FallingComponent = Falling[falling];
 
@@ -59,9 +66,18 @@ const Potluck = ({ title, backgroundImage, falling, theme } = options) => {
         />
       </div>
       <main className="flex flex-col min-h-screen p-4 sm:container mx-auto gap-4 parallax">
-        <h1 className="mt-8 font-cursive text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white text-center my-4">
-          {title}
-        </h1>
+        <header className="mt-8 flex justify-center">
+          <div className="max-w-3xl rounded-3xl bg-stone-950/70 px-6 py-5 text-center shadow-xl backdrop-blur-sm sm:px-10">
+            <h1 className="font-clean text-4xl leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-5xl md:text-6xl">
+              {title}
+            </h1>
+            {date ? (
+              <p className="font-clean mt-2 text-xl tracking-wide text-amber-50 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] sm:text-2xl md:text-3xl">
+                {date}
+              </p>
+            ) : null}
+          </div>
+        </header>
         <div className="font-clean flex flex-col gap-4">
           <Counter potluckItems={potluckItems} />
           <PotluckForm onSuccess={fetchPotluckItems} />

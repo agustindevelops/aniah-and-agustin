@@ -3,7 +3,8 @@ import Potluck from "@/components/Potluck";
 const Page = () => {
   return (
     <Potluck
-      title="Thanksgiving 2024"
+      title="Thanksgiving 2026"
+      date="Wednesday, November 25"
       backgroundImage={"/fall-background.jpg"}
       falling="leaves"
       theme={{
