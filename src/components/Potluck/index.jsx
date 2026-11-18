@@ -65,23 +65,29 @@ const Potluck = ({
           objectFit="cover"
         />
       </div>
-      <main className="flex flex-col min-h-screen p-4 sm:container mx-auto gap-4 parallax">
-        <header className="mt-8 flex justify-center">
-          <div className="max-w-3xl rounded-3xl bg-stone-950/70 px-6 py-5 text-center shadow-xl backdrop-blur-sm sm:px-10">
-            <h1 className="font-clean text-4xl leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-5xl md:text-6xl">
+      <main className="parallax mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-4 px-4 py-6 sm:gap-5 sm:px-6 sm:py-8">
+        <header className="flex justify-center">
+          <div className="w-full rounded-3xl bg-stone-950/75 px-6 py-5 text-center shadow-xl backdrop-blur-sm sm:px-8 sm:py-6">
+            <h1 className="font-clean text-4xl leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-5xl">
               {title}
             </h1>
             {date ? (
-              <p className="font-clean mt-2 text-xl tracking-wide text-amber-50 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] sm:text-2xl md:text-3xl">
+              <p className="font-clean mt-2 text-lg tracking-wide text-amber-50 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] sm:text-2xl">
                 {date}
               </p>
             ) : null}
           </div>
         </header>
-        <div className="font-clean flex flex-col gap-4">
+        <div className="font-clean flex flex-col gap-4 sm:gap-5">
           <Counter potluckItems={potluckItems} />
-          <PotluckForm onSuccess={fetchPotluckItems} />
-          <PotluckItemList potluckItems={potluckItems} />
+          <div className="grid items-start gap-4 md:grid-cols-2 md:gap-5">
+            <div className="order-2 md:order-1">
+              <PotluckForm onSuccess={fetchPotluckItems} />
+            </div>
+            <div className="order-1 md:order-2">
+              <PotluckItemList potluckItems={potluckItems} />
+            </div>
+          </div>
         </div>
       </main>
     </ThemeProvider>

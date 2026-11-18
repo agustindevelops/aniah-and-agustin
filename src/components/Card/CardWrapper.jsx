@@ -34,10 +34,8 @@ const Christmas = ({ children }) => {
 
 const Fall = ({ children }) => {
   return (
-    <div className="bg-red-800 bg-opacity-10 shadow-lg rounded-lg overflow-hidden border border-orange-950">
-      <div className="bg-gradient-to-t from-orange-100 to-orange-500 bg-opacity-10 p-4">
-        {children}
-      </div>
+    <div className="overflow-hidden rounded-[1.75rem] border border-orange-200 bg-orange-50/95 shadow-2xl shadow-orange-950/20">
+      <div className="p-5 sm:p-6">{children}</div>
     </div>
   );
 };

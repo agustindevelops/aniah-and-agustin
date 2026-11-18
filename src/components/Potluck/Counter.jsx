@@ -7,7 +7,7 @@ const Counter = ({ potluckItems }) => {
   if (!potluckItems) return <Spinner />;
 
   return (
-    <div className="flex flex-row justify-around gap-1 md:gap-2 lg:gap-4">
+    <div className="flex flex-row justify-around gap-2 sm:gap-3">
       {CATEGORIES.map(({ label, textColor, borderColor, value }) => {
         const total = potluckItems.reduce((total, { category }) => {
           return value === category ? total + 1 : total;
@@ -15,14 +15,27 @@ const Counter = ({ potluckItems }) => {
 
         const numberClass = classNames(textColor);
         const cardClass = classNames(
-          "bg-white rounded-2xl p-2 flex flex-col items-center justify-center border-2 w-full text-center",
+          "flex w-full flex-col items-center justify-center rounded-2xl border-2 bg-white/95 px-2 py-2 text-center shadow-lg sm:py-3",
           borderColor
         );
 
         return (
-          <div className={cardClass}>
-            <span className={numberClass}>{label}</span>
-            <CountUp end={total} className={numberClass} />
+          <div key={value} className={cardClass}>
+            <span
+              className={classNames(
+                numberClass,
+                "text-xs leading-tight sm:text-sm"
+              )}
+            >
+              {label}
+            </span>
+            <CountUp
+              end={total}
+              className={classNames(
+                numberClass,
+                "text-2xl leading-none sm:text-3xl"
+              )}
+            />
           </div>
         );
       })}

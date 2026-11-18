@@ -8,28 +8,37 @@ const PotluckItemList = ({ potluckItems }) => {
 
   return (
     <CardWrapper>
-      <h2 className="text-2xl font-bold text-center mb-6">Potluck Items</h2>
-      <ul className="divide-y divide-gray-200">
-        {potluckItems.map((item, index) => (
-          <Item key={`potluck-entry-${name}-${index}`} {...item} />
-        ))}
-      </ul>
+      <h2 className="mb-3 text-center text-2xl font-bold text-stone-900">
+        Potluck Items
+      </h2>
+      {potluckItems.length === 0 ? (
+        <p className="text-center text-base text-stone-600">
+          The table is still open. Add the first dish.
+        </p>
+      ) : (
+        <ul className="divide-y divide-orange-200">
+          {potluckItems.map((item) => (
+            <Item key={`potluck-entry-${item.id}`} {...item} />
+          ))}
+        </ul>
+      )}
     </CardWrapper>
   );
 };
 
 const Item = ({ item, name, category }) => {
-  const { bgColor, label } = getCategoryByValue(category);
+  const { bgColor, label, onBadge } = getCategoryByValue(category);
   const labelClass = classNames(
-    "inline-block px-3 py-1 text-sm font-semibold rounded-full",
+    "inline-block shrink-0 rounded-full px-3 py-1 text-sm font-semibold",
     bgColor,
+    onBadge
   );
 
   return (
-    <li className="py-4 flex justify-between items-center">
+    <li className="flex items-center justify-between gap-3 py-3">
       <div>
-        <p className="text-lg text-gray-900">{item}</p>
-        <p className="text-sm text-gray-600">{name}</p>
+        <p className="text-lg text-stone-900">{item}</p>
+        <p className="text-sm text-stone-600">{name}</p>
       </div>
       <span className={labelClass}>{label}</span>
     </li>

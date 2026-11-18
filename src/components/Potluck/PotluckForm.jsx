@@ -6,6 +6,7 @@ import { useState } from "react";
 import CardWrapper from "@/components/Card/CardWrapper";
 import Spinner from "@/components/Spinner";
 import { CATEGORIES } from "@/components/Potluck/constants";
+import classNames from "classnames";
 
 const ERROR_TEXT =
   "Oops! Something Went Wrong. Please feel free to blame Agustin for writing bad code.";
@@ -41,87 +42,98 @@ export default function PotluckForm({ onSuccess }) {
     }
   };
 
+  const fieldLabel = "block text-base font-medium text-stone-800";
+  const fieldInput =
+    "mt-1.5 block w-full rounded-xl border border-orange-200 bg-white px-3 py-2.5 text-base text-stone-900 shadow-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-300";
+
   return (
     <CardWrapper>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4"
+      >
         <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Your Name
+          <label htmlFor="name" className={fieldLabel}>
+            Your name
           </label>
           <input
             id="name"
             name="name"
             type="text"
+            placeholder="Agustin is awesome!"
             {...register("name", { required: "Name is required" })}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className={fieldInput}
           />
           {errors.name && (
-            <p className="text-red-500 text-xs italic">{errors.name.message}</p>
+            <p className="mt-1 text-sm italic text-red-600">
+              {errors.name.message}
+            </p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor="item"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Potluck Item
+          <label htmlFor="item" className={fieldLabel}>
+            What are you bringing?
           </label>
           <input
             id="item"
             name="item"
             type="text"
+            placeholder="Pumpkin pie"
             {...register("item", { required: "Item is required" })}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className={fieldInput}
           />
           {errors.item && (
-            <p className="text-red-500 text-xs italic">{errors.item.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Category
-          </label>
-          <select
-            id="category"
-            name="category"
-            {...register("category", { required: "Category is required" })}
-            className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          >
-            <option value="">Select a category...</option>
-            {CATEGORIES.map(({ label, value }) => (
-              <option key={`category-value-${value}`} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-          {errors.category && (
-            <p className="text-red-500 text-xs italic">
-              {errors.category.message}
+            <p className="mt-1 text-sm italic text-red-600">
+              {errors.item.message}
             </p>
           )}
         </div>
+
+        <fieldset>
+          <legend className={fieldLabel}>Pick a category</legend>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            {CATEGORIES.map(({ label, value, choiceClass }) => (
+              <label key={`category-value-${value}`} className="cursor-pointer">
+                <input
+                  type="radio"
+                  value={value}
+                  className="peer sr-only"
+                  {...register("category", {
+                    required: "Pick a category",
+                  })}
+                />
+                <span
+                  className={classNames(
+                    "flex min-h-11 items-center justify-center rounded-xl border-2 px-2 py-2 text-center text-sm font-medium transition peer-focus-visible:ring-2 peer-focus-visible:ring-orange-700 peer-focus-visible:ring-offset-2 peer-checked:shadow-md sm:text-base",
+                    choiceClass
+                  )}
+                >
+                  {label}
+                </span>
+              </label>
+            ))}
+          </div>
+          {errors.category && (
+            <p className="mt-2 text-sm italic text-red-600">
+              {errors.category.message}
+            </p>
+          )}
+        </fieldset>
         {err ? (
-          <h3 className="text-red-500 text-lg font-bold">{err}</h3>
-        ) : (
-          <></>
-        )}
+          <h3 className="text-base font-bold text-red-600">
+            {err}
+          </h3>
+        ) : null}
         <div className="flex justify-end">
           <button
             disabled={isLoading}
             type="submit"
-            className={`px-6 py-2 border border-transparent text-base font-medium rounded-md text-white bg-green-600 shadow-sm transition duration-200 ease-in-out ${
-              isLoading ? "bg-green-300" : "hover:bg-green-700"
-            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+            className={`w-full rounded-xl px-6 py-2.5 text-base font-medium text-white shadow-md transition focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-offset-2 ${
+              isLoading ? "bg-green-300" : "bg-green-700 hover:bg-green-800"
+            }`}
           >
-            {isLoading ? <Spinner /> : "Submit"}
+            {isLoading ? <Spinner /> : "Add to the table"}
           </button>
         </div>
       </form>
