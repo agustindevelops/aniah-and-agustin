@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import PotluckForm from "@/components/Potluck/PotluckForm";
+import EditPotluckModal from "@/components/Potluck/EditPotluckModal";
 import PotluckItemList from "@/components/Potluck/PotluckItems";
 import Snowfall from "react-snowfall";
 import { useEffect, useState } from "react";
@@ -41,6 +42,7 @@ const Potluck = ({
   theme,
 } = options) => {
   const [potluckItems, setPotluckItems] = useState(null);
+  const [editing, setEditing] = useState(null);
   const FallingComponent = Falling[falling];
 
   const fetchPotluckItems = async () => {
@@ -85,11 +87,24 @@ const Potluck = ({
               <PotluckForm onSuccess={fetchPotluckItems} />
             </div>
             <div className="order-1 md:order-2">
-              <PotluckItemList potluckItems={potluckItems} />
+              <PotluckItemList
+                potluckItems={potluckItems}
+                onEdit={setEditing}
+              />
             </div>
           </div>
         </div>
       </main>
+      {editing ? (
+        <EditPotluckModal
+          entry={editing}
+          onClose={() => setEditing(null)}
+          onSuccess={() => {
+            setEditing(null);
+            fetchPotluckItems();
+          }}
+        />
+      ) : null}
     </ThemeProvider>
   );
 };
